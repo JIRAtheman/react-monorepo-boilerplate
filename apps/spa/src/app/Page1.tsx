@@ -5,12 +5,52 @@
  Delete this file and get started with your project!
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
-export function Page1({ title }: { title: string }) {
+
+import React from 'react';
+import { BlogPost } from './components/BlogPost';
+
+const POSTS = [
+	{
+		title: 'My First Post',
+		lines: ["Hi, I'm Dan", 'This is line 2'],
+	},
+	{
+		title: 'My Second Post',
+		lines: ["Hi, I'm Dan", 'This is my second post'],
+	},
+];
+
+export function Home({ title }: { title: string }) {
+	const [bigCount, setBigCount] = React.useState(0);
+
+	React.useEffect(() => {
+		setBigCount(Number(localStorage.myStoredCount) ?? 0);
+	}, [])
+
+	const countLogic = (count: number) => {
+		count = count + 1;
+		localStorage.myStoredCount = count;
+		return count;
+	};
+
+	const onPostClick = (index: number) => {
+		setBigCount(countLogic);
+	};
+
 	return (
-		<div className="w-full h-full bg-base-100 text-white">
-			WHY YES WORK
+		<div className="w-full h-full flex flex-col gap-5 p-10 items-center justify-center bg-base-100 text-white">
+			<div>{`Big Count: ${bigCount}`}</div>
+			{POSTS.map((post, index) => {
+				return (
+					<BlogPost
+						title={post.title}
+						lines={post.lines}
+						onPostClicked={() => onPostClick(index)}
+					/>
+				);
+			})}
 		</div>
 	);
 }
 
-export default Page1;
+export default Home;

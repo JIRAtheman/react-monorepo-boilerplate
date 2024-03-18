@@ -1,4 +1,4 @@
-import Page1 from './Page1';
+import Home from './Page1';
 import Page2 from './Page2';
 export type PageConfiguration<T> = {
 	path: '/';
@@ -9,7 +9,7 @@ export default [
 	{
 		path: '/',
 		title: 'Home',
-		content: Page1,
+		content: Home,
 	},
 	{
 		path: '/page-2',
